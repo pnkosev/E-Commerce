@@ -1,0 +1,32 @@
+<mat-toolbar color="primary">
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="toggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <mat-icon>shopping_basket</mat-icon>
+    <a routerLink="/">Antiki</a>
+  </div>
+  <ul
+      fxFlex
+      fxLayout
+      fxLayoutAlign="flex-end"
+      fxLayoutGap="20px"
+      fxHide.xs
+      class="navigation-links">
+    <ng-template [ngIf]="!isLoggedIn">
+      <li><a routerLink="/user/register">Register</a></li>
+      <li><a routerLink="/user/login">Log In</a></li>
+    </ng-template>
+    <li><a routerLink="/about">About</a></li>
+    <ng-template [ngIf]="isLoggedIn">
+      <ng-template [ngIf]="isAdmin">
+        <li><a routerLink="/item/create">Create item</a></li>
+        <li><a routerLink="/user/admin-tool">Admin tool</a></li>
+      </ng-template>
+      <li><a routerLink="/user/profile">Profile</a></li>
+      <li><a class="logout-link" routerLink="" (click)="logout()">Logout</a></li>
+    </ng-template>
+  </ul>
+</mat-toolbar>

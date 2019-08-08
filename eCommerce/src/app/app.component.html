@@ -1,0 +1,15 @@
+<div class="loading-indicator" *ngIf="loading">
+  <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <app-sidenav-list></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="wrapper">
+    <app-toolbar (sidenavToggle)="sidenav.toggle()"></app-toolbar>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer class="footer"></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

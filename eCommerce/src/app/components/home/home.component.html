@@ -1,0 +1,13 @@
+<h1 class="text-center">Welcome to antikitiki.com!</h1>
+<div
+  class="item-list"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  fxLayoutGap="2rem">
+
+  <app-item-single 
+    *ngFor="let item of items"
+    [item]="item">
+  </app-item-single>
+  
+</div>

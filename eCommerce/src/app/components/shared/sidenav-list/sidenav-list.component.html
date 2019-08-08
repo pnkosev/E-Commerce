@@ -1,0 +1,38 @@
+<mat-nav-list>
+  <div>
+    <ng-template [ngIf]="!isLoggedIn">
+      <a mat-list-item routerLink="/user/register">
+        <mat-icon>perm_identity</mat-icon>
+        Register
+      </a>
+      <a mat-list-item routerLink="/user/login">
+        <mat-icon>account_circle</mat-icon>
+        Log In
+      </a>
+    </ng-template>
+    <a mat-list-item routerLink="/about">
+      <mat-icon>info</mat-icon>
+      About
+    </a>
+    <ng-template [ngIf]="isLoggedIn">
+      <ng-template [ngIf]="isAdmin">
+        <a mat-list-item routerLink="/item/create">
+          <mat-icon>add_box</mat-icon>
+          Create item
+        </a>
+        <a mat-list-item routerLink="/user/admin-tool">
+          <mat-icon>build</mat-icon>
+          Admin tool
+        </a>
+      </ng-template>
+      <a mat-list-item routerLink="/user/profile">
+        <mat-icon>question_answer</mat-icon>
+        Profile
+      </a>
+      <a mat-list-item routerLink="" class="logout-link" (click)="logout()">
+        <mat-icon>eject</mat-icon>
+        Logout
+      </a>
+    </ng-template>
+  </div>
+</mat-nav-list>

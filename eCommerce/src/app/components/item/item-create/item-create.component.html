@@ -1,0 +1,63 @@
+<form 
+  (ngSubmit)="create()"
+  [formGroup]="form"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  fxLayoutGap="20px">
+
+  <h1 class="text-center" fxFlexOffset="40px">Create item</h1>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Title</mat-label>
+    <input #titleInput matInput placeholder="Title" formControlName="title">
+    <mat-hint>Please enter a valid title (4-20 symbols)</mat-hint>
+    <mat-hint align="end">{{titleInput.value?.length || 0}}/20</mat-hint>
+    <mat-icon *ngIf="title.valid" class="valid" matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-icon *ngIf="title.touched && title.invalid" class="invalid" matSuffix>sentiment_very_dissatisfied</mat-icon>
+    <mat-error *ngIf="title.hasError('required')">Title is required.</mat-error>
+    <mat-error *ngIf="title.hasError('minlength')">Title must be at least 4 symbols.</mat-error>
+    <mat-error *ngIf="title.hasError('maxlength')">Title must be maximum 15 symbols.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea
+      #descriptionInput
+      matInput
+      placeholder="Nice silver ring from the years 1950..."
+      formControlName="description"
+      rows="6">
+    </textarea>
+    <mat-hint>Please enter a valid description</mat-hint>
+    <mat-hint align="end">{{descriptionInput.value?.length || 0}}/200</mat-hint>
+    <mat-icon *ngIf="description.valid" class="valid" matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-icon *ngIf="description.touched && description.invalid" class="invalid" matSuffix>sentiment_very_dissatisfied</mat-icon>
+    <mat-error *ngIf="description.hasError('required')">Description is required.</mat-error>
+    <mat-error *ngIf="description.hasError('minlength')">Description must be at least 20 symbols.</mat-error>
+    <mat-error *ngIf="description.hasError('maxlength')">Description must be maximum 200 symbols.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Price</mat-label>
+    <input matInput placeholder="1500" formControlName="price">
+    <mat-hint>Please enter a valid price (1 - 10000 euros)</mat-hint>
+    <mat-icon *ngIf="price.valid" class="valid" matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-icon *ngIf="price.touched && price.invalid" class="invalid" matSuffix>sentiment_very_dissatisfied</mat-icon>
+    <mat-error *ngIf="price.hasError('required')">Price is required.</mat-error>
+    <mat-error *ngIf="price.hasError('minlength')">Price must be at least 1 euro.</mat-error>
+    <mat-error *ngIf="price.hasError('maxlength')">Price must not exceed 10 000 euros.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>ImageURL</mat-label>
+    <input matInput placeholder="https://example-image.jpeg" formControlName="imageURL">
+    <mat-hint>Please enter a valid imageURL(starting with http/https and ending with jpeg, jpg, png)</mat-hint>
+    <mat-icon *ngIf="imageURL.valid" class="valid" matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-icon *ngIf="imageURL.touched && imageURL.invalid" class="invalid" matSuffix>sentiment_very_dissatisfied</mat-icon>
+    <mat-error *ngIf="imageURL.hasError('required')">ImageURL is required.</mat-error>
+    <mat-error *ngIf="imageURL.hasError('invalidURL')">ImageURL is invalid.</mat-error>
+  </mat-form-field>
+
+  <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">Create</button>
+
+</form>

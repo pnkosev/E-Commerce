@@ -1,0 +1,15 @@
+mat-form-field {
+  width: 400px;
+}
+
+mat-icon.invalid {
+  color: red;
+}
+
+mat-icon.valid {
+  color: green;
+}
+
+textarea {
+  resize: none !important;
+}

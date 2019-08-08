@@ -1,0 +1,15 @@
+mat-form-field {
+  width: 300px;
+}
+
+p {
+  padding-top: 1rem;
+}
+
+mat-icon.invalid {
+  color: red;
+}
+
+mat-icon.valid {
+  color: green;
+}
