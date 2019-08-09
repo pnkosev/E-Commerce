@@ -48,16 +48,17 @@
     <mat-error *ngIf="price.hasError('maxlength')">Price must not exceed 10 000 euros.</mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="legacy">
-    <mat-label>ImageURL</mat-label>
-    <input matInput placeholder="https://example-image.jpeg" formControlName="imageURL">
-    <mat-hint>Please enter a valid imageURL(starting with http/https and ending with jpeg, jpg, png)</mat-hint>
-    <mat-icon *ngIf="imageURL.valid" class="valid" matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-icon *ngIf="imageURL.touched && imageURL.invalid" class="invalid" matSuffix>sentiment_very_dissatisfied</mat-icon>
-    <mat-error *ngIf="imageURL.hasError('required')">ImageURL is required.</mat-error>
-    <mat-error *ngIf="imageURL.hasError('invalidURL')">ImageURL is invalid.</mat-error>
-  </mat-form-field>
-
+  <div formArrayName="images" class="form-div">
+    <mat-form-field appearance="legacy" *ngFor="let image of images.controls; let i=index" [formGroupName]="i" class="image-form">
+      <mat-label>ImageURL</mat-label>
+      <input matInput placeholder="https://example-image.jpeg" formControlName="imageURL">
+      <mat-hint>Please enter a valid imageURL(starting with http/https and ending with jpeg, jpg, png)</mat-hint>
+      <mat-icon *ngIf="imageURL[i].controls.imageURL.valid" class="valid" matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-icon *ngIf="imageURL[i].controls.imageURL.touched && imageURL[i].controls.imageURL.invalid" class="invalid" matSuffix>sentiment_very_dissatisfied</mat-icon>
+      <mat-error *ngIf="imageURL[i].controls.imageURL.hasError('required')">ImageURL is required.</mat-error>
+      <mat-error *ngIf="imageURL[i].controls.imageURL.hasError('invalidURL')">ImageURL is invalid.</mat-error>
+    </mat-form-field>
+  </div>
+  <button type="button" mat-button class="add-image-btn" (click)="addImage()">Image ++</button>
   <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">Create</button>
-
 </form>

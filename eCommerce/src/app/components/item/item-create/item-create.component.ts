@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -12,6 +12,7 @@ import { ItemService } from './../../../core/services/item.service';
 })
 export class ItemCreateComponent implements OnInit, OnDestroy {
   form: FormGroup;
+  imagesCount = 1;
   createItemSub: Subscription;
 
   constructor(
@@ -29,7 +30,11 @@ export class ItemCreateComponent implements OnInit, OnDestroy {
       title: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
       description: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(200)]],
       price: [null, [Validators.required, Validators.min(1), Validators.max(10000)]],
-      imageURL: ['', [Validators.required, this.validateImageURL]],
+      images: this.fb.array(
+        new Array(this.imagesCount).fill(null).map((_) => (this.fb.group({
+          imageURL: ['', [Validators.required, this.validateImageURL]]
+        })))
+      )
     });
   }
 
@@ -41,11 +46,19 @@ export class ItemCreateComponent implements OnInit, OnDestroy {
   }
 
   create() {
+    console.log(this.form);
     if (this.form.valid) {
       this.createItemSub = this.itemService.createItem(this.form.value).subscribe(() => {
         // this.router.navigate(['/home']);
       });
     }
+  }
+
+  addImage() {
+    const currentFormValue = this.form.value;
+    this.imagesCount++;
+    this.buildForm();
+    this.form.patchValue(currentFormValue);
   }
 
   get title(): AbstractControl {
@@ -60,8 +73,12 @@ export class ItemCreateComponent implements OnInit, OnDestroy {
     return this.form.controls.price;
   }
 
-  get imageURL(): AbstractControl {
-    return this.form.controls.imageURL;
+  get images(): FormArray {
+    return this.form.get('images') as FormArray;
+  }
+
+  get imageURL() {
+    return this.images.controls;
   }
 
   ngOnDestroy() {

@@ -1,5 +1,14 @@
-mat-form-field {
+form {
+  margin-bottom: 2rem;
+}
+
+mat-form-field,
+.form-div {
   width: 400px;
+}
+
+.image-form {
+  margin-bottom: 20px;
 }
 
 mat-icon.invalid {
