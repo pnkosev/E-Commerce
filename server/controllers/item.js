@@ -23,7 +23,7 @@ module.exports = {
       });
   },
   createItem: (req, res, next) => {
-    const { title, description, price, imageURL: images } = req.body;
+    const { title, description, price, images } = req.body;
 
     const item = new Item({
       title,
